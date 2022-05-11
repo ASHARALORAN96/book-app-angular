@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'book-app';
+  retivedPage=''
+  getPage(retrivedata : string){
+  this.retivedPage = retrivedata
+  }
 }
