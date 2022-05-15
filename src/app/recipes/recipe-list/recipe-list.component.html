@@ -3,5 +3,5 @@
         <button class="btn btn-success">New Recipe</button>
     </div>
 </div>
-<app-recipe-item  *ngFor="let recipe of recipes" [recipeData]="recipe" (click)="handleSelectedRecipe(recipe,$event)"></app-recipe-item>
+<app-recipe-item  *ngFor="let recipe of recipes" [recipeData]="recipe"></app-recipe-item>
 
