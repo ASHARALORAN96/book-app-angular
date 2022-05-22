@@ -19,6 +19,10 @@ export class ShoppingListComponent implements OnInit {
       }
     )
   }
+  editIng(index: number){
+    this.ShoppingListService.editIngEvent.next(index)
+    console.log(this.ShoppingListService.editIngEvent)
+  }
 
 
 }

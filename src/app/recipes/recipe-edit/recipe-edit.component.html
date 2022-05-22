@@ -1,0 +1,47 @@
+
+<form (ngSubmit)="submitForm()" [formGroup]="recipesForm">
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="submit" class="btn btn-success" [disabled]="!recipesForm.valid">Add</button>
+            <button type="button" class="btn btn-danger" style="margin:0 10px;" (click)="onClear()">Clear</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <label for="name">Recipe name:</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <label for="imageUrl">Image URL:</label>
+            <input type="text" id="imageUrl" class="form-control" #imgIUrl formControlName="imgUrl">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <img [src]="imgIUrl.value" class="img-responsive">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" class="form-control" rows="6" formControlName="discription"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" formArrayName="ingredients">
+                <div class="row" *ngFor="let ing of getIngerdient(), let i = index" [formGroupName]="i">
+                    <div class="col-xs-8"><input type="text" class="form-control" formControlName="name"></div>
+                    <div class="col-xs-8"><input type="text" class="form-control" formControlName="amount"></div>
+                    <div class="col-xs-8"><button class="btn btn-danger" type="button" (click)="deleteIngredientForRecipe(i)">X</button></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-success" type="button" (click)="addIngredientTotheList()">Add Ingredient</button>
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+</form>

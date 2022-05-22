@@ -1,8 +1,8 @@
 <app-shopping-edit></app-shopping-edit>
 <div class="row">
     <div class="col-xs-12">
-        <ul class="list-group" *ngFor="let ingredinet of ingredients">
-            <a class="list-group-item" >
+        <ul class="list-group" *ngFor="let ingredinet of ingredients, let i = index" >
+            <a class="list-group-item" (click)="editIng(i)">
                 {{ingredinet.name}} ({{ingredinet.amount}})
             </a>
         </ul>
