@@ -8,13 +8,19 @@ import { Recipe } from "./recipe.model";
 export class RecipesService{
     selectedRecipe :Recipe
     changeRecipeArr= new Subject<Recipe[]>()
-    private recipes: Recipe[] = [
-        new Recipe('test recipe name', 'this is for test only', 'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg', [new Ingredients('bread', 1), new Ingredients('Souce', 15)])
-        ,new Recipe('test recipe name 2', 'Recipe two description', 'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg', [new Ingredients('meat', 2)])
-      ]
+    private recipes: Recipe[] = [];
+    // [
+    //     new Recipe('test recipe name', 'this is for test only', 'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg', [new Ingredients('bread', 1), new Ingredients('Souce', 15)])
+    //     ,new Recipe('test recipe name 2', 'Recipe two description', 'https://static01.nyt.com/images/2021/03/28/dining/mc-shakshuka/mc-shakshuka-articleLarge.jpg', [new Ingredients('meat', 2)])
+    //   ]
     constructor(private ShoppingListService:ShoppingListService){}
     getRecipes(){
         return this.recipes.slice()
+        
+    }
+    setNewRecipeArr(recipe:Recipe[]){
+        this.recipes = recipe;
+        this.changeRecipeArr.next(this.recipes.slice())
     }
     getRecipeByIndex(id: number){
        return this.recipes[id]
