@@ -4,20 +4,27 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">Recipe Book</a>
+            <a class="navbar-brand">Recipe Book</a>
         </div>
         <!-- navbar about the routes that i have (shopping list | recipes) -->
         <div class="navbar-default">
             <ul class="nav navbar-nav">
-                <li ><a href="#" (click)="getRecipePage('recipes')" type="button">Recipes</a></li>
-                <li><a href="#" (click)="getShoppingListPage('shoppingList')" type="button">Shopping list</a></li>
+                <li routerLinkActive="active"><a routerLink="recipes"  type="button" *ngIf="isAuthanticated">Recipes</a></li>
+                <li routerLinkActive="active"><a routerLink="shopping-list"   type="button">Shopping list</a></li>
+                <li routerLinkActive="active"><a routerLink="auth"   type="button" *ngIf="!isAuthanticated">Authantication</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" appDropdownDirective>
-                <a href="#" class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
+            <ul class="nav navbar-nav navbar-right" >
+                <li class="dropdown" appDropdownDirective *ngIf="isAuthanticated">
+                <a class="dropdown-toggle" role="button" (click)="logoutUser()">Logout <span class="caret"></span></a>
+                </li>
+                
+            </ul>
+            <ul class="nav navbar-nav navbar-right" >
+                <li class="dropdown" appDropdownDirective *ngIf="isAuthanticated">
+                <a class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Save Data</a></li>
-                        <li><a href="#">Fetch Data</a></li>
+                        <li><a (click)="saveRecipesData()">Save Data</a></li>
+                        <li><a (click)="fecheRecipesData()">Fetch Data</a></li>
                     </ul>
                 </li>
                 

@@ -1,21 +1,34 @@
-import { Component, Input, Output , EventEmitter } from "@angular/core";
+import { Component, Input, Output , EventEmitter, OnInit, OnDestroy } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { AuthService } from "../auth/auth.service";
+import { RecipeDataStorage } from "../data-storage.service";
 // import { EventEmitter } from "stream";
 
 @Component({
 selector: 'app-header',
 templateUrl: './header.component.html'
 })
-export class HeaderComponent{
-    collapsed=true;
-    // reteivedData :string = '';
-    @Output() selectedPage =new EventEmitter<string>();
+export class HeaderComponent implements OnInit, OnDestroy{
+    isAuthanticated=false;
+    isAuthSub: Subscription
 
-    getRecipePage(page:string){
-        // this.reteivedData = page
-        this.selectedPage.emit(page)
+    constructor(private dataStorage: RecipeDataStorage, private authService:AuthService){}
+    saveRecipesData(){
+        this.dataStorage.saveRecipesinDB()
     }
-    getShoppingListPage(page:string){
-        // this.reteivedData = page
-        this.selectedPage.emit(page)
+    ngOnInit(): void {
+       this.isAuthSub= this.authService.userSub.subscribe(user=>{
+            this.isAuthanticated= !!user
+        })
+    }
+    fecheRecipesData(){
+        this.dataStorage.feachRecipes().subscribe()
+    }
+    logoutUser(){
+        this.authService.logout()
+    }
+    ngOnDestroy(): void {
+        this.isAuthSub.unsubscribe()
     }
 }
