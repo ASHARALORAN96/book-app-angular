@@ -12,7 +12,7 @@ import { RecipesService } from '../recipes.service';
 })
 export class RecipeEditComponent implements OnInit {
   recipe : Recipe;
-  // subscription : Subscription
+  subscription : Subscription
   id: number;
   recipesForm:FormGroup= new FormGroup({
     'name': new FormControl('', Validators.required),
@@ -26,7 +26,7 @@ export class RecipeEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private recipeService : RecipesService,private router :Router ) { }
 
   ngOnInit() {
-    this.route.params
+ this.subscription=   this.route.params
     .subscribe(
       (parms :Params)=>{
         this.id = +parms['id']
@@ -80,26 +80,26 @@ export class RecipeEditComponent implements OnInit {
       this.onClear()
     }
   }
-  // get Ingerdient(){
-  //   return (<FormArray>this.recipesForm.get('Ingredients')).controls
-  // }
+  get Ingerdient(){
+    return (this.recipesForm.get('Ingredients') as FormArray).controls
+  }
 
-  // addIngredientTotheList(){
-  //   (<FormArray>this.recipesForm.get('Ingredients')).push(
-  //     new FormGroup({
-  //       'name': new FormControl(null, Validators.required),
-  //       'amount': new FormControl(null ,  [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
-  //     })
-  //   )
-  // }
+  addIngredientTotheList(){
+    (<FormArray>this.recipesForm.get('Ingredients')).push(
+      new FormGroup({
+        'name': new FormControl(null, Validators.required),
+        'amount': new FormControl(null ,  [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
+      })
+    )
+  }
   onClear(){
     this.router.navigate(['../'], {relativeTo: this.route})
   }
   deleteIngredientForRecipe(index: number){
     (<FormArray>this.recipesForm.get('Ingredients')).removeAt(index)
   }
-  // ngOnDestroy(): void {
-  //   this.subscription.unsubscribe()
-  //   this.editMode = false
-  // }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+    this.editMode = false
+  }
 }

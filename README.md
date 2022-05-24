@@ -1,5 +1,6 @@
 # BookApp
-
+# deploying link:
+[live link](https://angular-pratice-e3422.web.app)
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
 
 ## Development server
